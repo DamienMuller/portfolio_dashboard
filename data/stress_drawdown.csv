@@ -1,0 +1,8 @@
+,Stress drawdown (%)
+MVO,-12.03
+Decision Tree,-20.73
+Decision Tree (Tuned),-22.63
+Random Forest,-22.21
+Random Forest (Tuned),-22.08
+Gradient boosting,-26.08
+Gradient boosting (Tuned),-22.83

@@ -1,0 +1,5 @@
+Metric,MVO,Decision Tree,Decision Tree (Tuned),Random Forest,Random Forest (Tuned),Gradient boosting,Gradient boosting (Tuned)
+Total return,15.3,25.36,17.03,23.64,19.29,19.21,19.46
+Annualized return,10.0,16.34,11.11,15.27,12.54,12.49,12.65
+Annualized volatility,9.15,15.75,16.27,16.22,16.07,19.1,16.61
+Sharpe ratio,0.87,0.91,0.56,0.82,0.66,0.55,0.64
