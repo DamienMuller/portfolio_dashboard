@@ -3,28 +3,35 @@ name: Keep Streamlit Awake
 on:
   schedule:
     - cron: "17 */6 * * *"
-
   workflow_dispatch:
 
 jobs:
-  ping:
+  wake:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
-      - name: Visit Streamlit app
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Playwright
         run: |
-          STATUS=$(curl \
-            --silent \
-            --show-error \
-            --output /dev/null \
-            --write-out "%{http_code}" \
-            --max-time 60 \
-            "https://ai-portfolio-opt-dashboard.streamlit.app/")
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
 
-          echo "HTTP status: $STATUS"
+      - name: Wake Streamlit app
+        run: python scripts/wake_streamlit.py
 
-          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 400 ]; then
-            exit 0
-          else
-            exit 1
-          fi
+      - name: Upload screenshot on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wake-streamlit-screenshot
+          path: wake-streamlit.png
+          if-no-files-found: ignore
